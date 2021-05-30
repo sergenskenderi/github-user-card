@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import axios from 'axios';
+import React from 'react';
 import './App.css';
+import Profile from './components/Profile';
 
-function App() {
-  return (
+class App extends React.Component{
+  // State
+  state = {
+    profile : []
+  }
+
+  // DidMount
+  componentDidMount(){
+    axios.get(`https://api.github.com/users/sergenskenderi`)
+    .then( (res) => {
+      this.setState({
+        profile : res.data
+      })
+    })
+    .catch( (err) => console.log(err));
+  }
+
+  //DidUpdate
+
+
+  render ( ) {
+    return(
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Profile profile={this.state.profile}/>
     </div>
-  );
+    );
+  }
 }
 
 export default App;
