@@ -12,7 +12,7 @@ function Profile (props) {
             <Card style={{
                   width : '30rem' ,
                   margin: 'auto' ,
-                  marginTop : '2%',
+                  marginTop : '1%',
                   marginBottom : '20px'
                   }}>
                 <Card.Header> <Header avatar_url={props.profile.avatar_url} username={props.profile.login} 
@@ -37,6 +37,7 @@ function Profile (props) {
                     {props.profile.followers !== 0 &&
                     <div>
                      <hr></hr>
+                     <h5>Followers</h5>
                      {props.followers.map( follower => {
                          return <ContentFollowers key={follower.id} followers={follower} />;
                      })}
