@@ -5,12 +5,13 @@ import ContentPersonalInfo from "./ContentPersonalInfo";
 import ContentActivity from "./ContentActivity";
 import ContentFollowers from "./ContentFollowers";
 import moment from "moment";
+import ReactGitHubCalendar from 'react-ts-github-calendar';
 
 function Profile (props) {
     return (
         <div>
             <Card style={{
-                  width : '30rem' ,
+                  width : '36rem' ,
                   margin: 'auto' ,
                   marginTop : '1%',
                   marginBottom : '20px'
@@ -43,6 +44,8 @@ function Profile (props) {
                      })}
                     </div>
                     }
+                    <hr></hr>
+                    <ReactGitHubCalendar tooltips responsive  userName={props.profile.login} />
                 </Card.Body>
                 <Card.Footer className="text-muted">Last Updated : {moment(props.profile.updated_at).format("LLLL")}</Card.Footer>
             </Card>
