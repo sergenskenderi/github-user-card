@@ -3,6 +3,8 @@ import { Card } from "react-bootstrap";
 import Header from "./Header";
 import ContentPersonalInfo from "./ContentPersonalInfo";
 import ContentActivity from "./ContentActivity";
+import ContentFollowers from "./ContentFollowers";
+import moment from "moment";
 
 function Profile (props) {
     return (
@@ -10,19 +12,38 @@ function Profile (props) {
             <Card style={{
                   width : '30rem' ,
                   margin: 'auto' ,
-                  marginTop : '5%'
+                  marginTop : '2%',
+                  marginBottom : '20px'
                   }}>
-                <Card.Header> <Header avatar_url={props.profile.avatar_url} username={props.profile.login} /> </Card.Header>
+                <Card.Header> <Header avatar_url={props.profile.avatar_url} username={props.profile.login} 
+                html_url={props.profile.html_url}/> </Card.Header>
                 <Card.Body>
+                    {props.profile.bio &&
+                    <div>
                     <Card.Title>{props.profile.bio}</Card.Title>
                     <hr></hr>
+                    </div>
+                    }
+                    { (props.profile.company || props.profile.location || props.profile.email || props.profile.blog || props.profile.name ||
+                        props.profile.hirable || props.profile.twitter_username) &&
+                    <div>
                     <ContentPersonalInfo company={props.profile.company} location={props.profile.location} email={props.profile.email} blog={props.profile.blog} 
                     name={props.profile.name} hirable={props.profile.hirable} twitter_username={props.profile.twitter_username}/>
-                    <hr></hr>
+                     <hr></hr>
+                    </div>
+                    }
                     <ContentActivity followers={props.profile.followers} following={props.profile.following} public_gists={props.profile.public_gists} 
                     public_repos={props.profile.public_repos}/>
+                    {props.profile.followers !== 0 &&
+                    <div>
+                     <hr></hr>
+                     {props.followers.map( follower => {
+                         return <ContentFollowers key={follower.id} followers={follower} />;
+                     })}
+                    </div>
+                    }
                 </Card.Body>
-                <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                <Card.Footer className="text-muted">Last Updated : {moment(props.profile.updated_at).format("LLLL")}</Card.Footer>
             </Card>
         </div>
     )

@@ -6,15 +6,25 @@ import Profile from './components/Profile';
 class App extends React.Component{
   // State
   state = {
-    profile : []
+    profile : [],
+    followers : [],
+    username : 'sergenskenderi'
   }
 
   // DidMount
   componentDidMount(){
-    axios.get(`https://api.github.com/users/sergenskenderi`)
+    axios.get(`https://api.github.com/users/${this.state.username}`)
     .then( (res) => {
       this.setState({
         profile : res.data
+      })
+    })
+    .catch( (err) => console.log(err));
+
+    axios.get(`https://api.github.com/users/${this.state.username}/followers`)
+    .then( (res) => {
+      this.setState({
+        followers : res.data
       })
     })
     .catch( (err) => console.log(err));
@@ -26,7 +36,7 @@ class App extends React.Component{
   render ( ) {
     return(
     <div className="App">
-      <Profile profile={this.state.profile}/>
+      <Profile profile={this.state.profile} followers={this.state.followers}/>
     </div>
     );
   }

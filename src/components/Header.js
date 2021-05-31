@@ -24,7 +24,8 @@ function Header (props){
     return (
         <div className={classes.root}>
         <Avatar alt="Avatar" src={props.avatar_url} className={classes.large} />
-        <h5 className={classes.username}>{props.username}</h5>
+        <a style={{textDecoration : 'none' , color : 'black'}} className={classes.username} 
+        href={props.html_url}><h5>{props.username}</h5></a>
       </div>
     )
 }
